@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+var program = require('commander');
+var util = require('util');
+var log = util.log;
+var express = require('express');
+var basicAuth = require('basic-auth-connect');
+var pkg = require('../package.json');
+
+program
+  .version(pkg.version)
+  .option('-p, --port <n>','Port',parseInt)
+  .option('-d, --dir <s>','Application Directory')
+  .option('-i, --index <s>','default root')
+  .option('-a, --auth <s>','set auth password')
+  .option('-v, --verbose')
+  .parse(process.argv);
+
+var app = express();
+
+var dir = program.dir || __dirname;
+var port = program.port||8080;
+var index = program.index;
+var auth = program.auth;
+
+if(program.verbose){
+  log("verbose");
+  app.use(function(request,response,next){
+    log("%s %s",request.method,request.url);
+    next();
+  });
+}
+
+if(auth){
+  log("Using password %s",auth);
+  app.use(basicAuth(function(user,pass){
+    return pass === auth;
+  }));
+}
+
+if(index){
+  app.get('/',function(req,res){
+    res.redirect(index);
+  });
+}
+app.use('/',express.static(dir));
+
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.send('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
+app.set('port',port);
+
+util.log("Using directory %s",dir);
+util.log("Starting server on port %s...",port);
+
+var server = app.listen(app.get('port'), function() {
+  util.log('Express server listening on port ' + server.address().port);
+});
+
+
+
+
+

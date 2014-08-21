@@ -1,0 +1,17 @@
+{
+  "name": "static_webserver",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "express": "~4.2.0",
+    "static-favicon": "~1.0.0",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "basic-auth-connect": "~1.0.0",
+    "commander": "~2.3.0",
+    "colors": "~0.6.2"
+  }
+}
