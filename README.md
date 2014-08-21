@@ -8,7 +8,7 @@ Usage: sws [options]
 
     -h, --help       output usage information
     -V, --version    output the version number
-    -p, --port <n>   Port
+    -p, --port <n>   Port, default: 3000
     -d, --dir <s>    Application Directory
     -i, --index <s>  default root
     -a, --auth <s>   set auth password

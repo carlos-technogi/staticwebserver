@@ -1,6 +1,7 @@
 {
   "name": "static_webserver",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "author": "moguelator",
   "private": false,
   "bin":{
     "sws": "./bin/sws"
@@ -16,5 +17,7 @@
     "basic-auth-connect": "~1.0.0",
     "commander": "~2.3.0",
     "colors": "~0.6.2"
-  }
+  },
+  "repository":" https://github.com/moguelator/static_webserver.git",
+  "homepage":"https://github.com/moguelator/static_webserver"
 }

@@ -8,7 +8,7 @@ var pkg = require('../package.json');
 
 program
   .version(pkg.version)
-  .option('-p, --port <n>','Port',parseInt)
+  .option('-p, --port <n>','Port, default: 3000',parseInt)
   .option('-d, --dir <s>','Application Directory')
   .option('-i, --index <s>','default root')
   .option('-a, --auth <s>','set auth password')
