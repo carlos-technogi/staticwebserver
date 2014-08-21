@@ -1,5 +1,4 @@
 # Static Web Server #
-*TECHNOGI*
 
 Simple web server for static content.
 

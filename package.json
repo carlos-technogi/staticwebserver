@@ -1,6 +1,6 @@
 {
-  "name": "static_webserver",
-  "version": "0.0.6",
+  "name": "staticwebserver",
+  "version": "0.0.8",
   "author": "moguelator",
   "private": false,
   "bin": {
@@ -15,6 +15,6 @@
     "commander": "~2.3.0",
     "serve-favicon": "~2.0.1"
   },
-  "repository": " https://github.com/moguelator/static_webserver.git",
-  "homepage": "https://github.com/moguelator/static_webserver"
+  "repository": " https://github.com/moguelator/staticwebserver.git",
+  "homepage": "https://github.com/moguelator/staticwebserver"
 }
