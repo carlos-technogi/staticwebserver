@@ -18,7 +18,7 @@ program
 var app = express();
 
 var dir = program.dir || __dirname;
-var port = program.port||8080;
+var port = program.port||3000;
 var index = program.index;
 var auth = program.auth;
 
