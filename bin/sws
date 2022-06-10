@@ -1,71 +1,71 @@
 #!/usr/bin/env node
-var program = require('commander');
-var util = require('util');
-var log = util.log;
-var express = require('express');
-var basicAuth = require('basic-auth-connect');
-var pkg = require('../package.json');
+const { program } = require("commander");
+const express = require("express");
+const basicAuth = require("basic-auth-connect");
+const pkg = require("../package.json");
+
+const { log } = console;
 
 program
   .version(pkg.version)
-  .option('-P, --port <n>','Port, default: 3000',parseInt)
-  .option('-d, --dir <s>','Application Directory')
-  .option('-i, --index <s>','default root')
-  .option('-p, --password <s>','basic auth password')
-  .option('-u, --user <s>','basic auth user')
-  .option('-a, --basicauth','set basicauth')
-  .option('-v, --verbose')
+  .option("-P, --port <n>", "Port, default: 3000", parseInt)
+  .option("-d, --dir <s>", "Application Directory")
+  .option("-i, --index <s>", "default root")
+  .option("-p, --password <s>", "basic auth password")
+  .option("-u, --user <s>", "basic auth user")
+  .option("-a, --basicauth", "set basicauth")
+  .option("-v, --verbose")
   .parse(process.argv);
 
-var app = express();
+const options = program.opts();
 
-var dir = program.dir || __dirname;
-var port = program.port||3000;
-var index = program.index;
-var auth = program.basicauth;
-var username = program.user||"user";
-var password = program.password||"pass";
+const app = express();
+const dir = options.dir || __dirname;
+const port = options.port || 3000;
+const index = options.index;
+const auth = options.basicauth;
+const username = options.user || "user";
+const password = options.password || "pass";
 
-if(program.verbose){
+if (options.verbose) {
   log("verbose");
-  app.use(function(request,response,next){
-    log("%s %s",request.method,request.url);
+  app.use(function (request, _response, next) {
+    log("%s %s", request.method, request.url);
     next();
   });
 }
 
-if(auth){
-  log("Using user %s and password %s",username,password);
-  app.use(basicAuth(function(user,pass){
-    return pass === password && user===username;
-  }));
+if (auth) {
+  log("Using user %s and password %s", username, password);
+  app.use(
+    basicAuth(function (user, pass) {
+      return pass === password && user === username;
+    })
+  );
 }
 
-if(index){
-  app.get('/',function(req,res){
+if (index) {
+  app.get("/", function (req, res) {
     res.redirect(index);
   });
 }
-app.use('/',express.static(dir));
+app.use("/", express.static(dir));
 
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500);
-  res.send('error', {
+  res.send("error", {
     message: err.message,
-    error: {}
+    error: {},
   });
 });
 
-app.set('port',port);
+app.set("port", port);
 
-util.log("Using directory %s",dir);
-util.log("Starting server on port %s...",port);
+console.log("Using directory %s", dir);
+console.log("Starting server on port %s...", port);
 
-var server = app.listen(app.get('port'), function() {
-  util.log('Express server listening on port ' + server.address().port);
+var server = app.listen(app.get("port"), function () {
+  console.log(
+    `static web server running on  http://localhost:${server.address().port}`
+  );
 });
-
-
-
-
-
